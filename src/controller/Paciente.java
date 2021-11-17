@@ -12,7 +12,16 @@ public class Paciente {
     private String email;
     private String sexo;
     private String telefone;
-    private String nascimento;    
+    private String nascimento;   
+    private String tipo_medico;
+
+    public String getTipo_medico() {
+        return tipo_medico;
+    }
+
+    public void setTipo_medico(String tipo_medico) {
+        this.tipo_medico = tipo_medico;
+    }
 
     public int getId_paciente() {
         return id_paciente;

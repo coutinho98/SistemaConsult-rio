@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import org.json.simple.JSONObject;
 
 import utils.Conectar;
 import controller.Paciente;
@@ -18,14 +19,16 @@ public class PacienteDAO {
 
     public void register(Paciente p) {
         Connection con = Conectar.getConectar();
-        String sql = "INSERT INTO paciente (nome, cpf, email, nascimento, sexo, telefone) VALUES(?,?,?,?,?,?)";
+        JSONObject objetoJson = new JSONObject();
+        String sql = "INSERT INTO paciente (nome, cpf, email, nascimento, sexo, telefone, tipo_medico) VALUES(?,?,?,?,?,?,?)";
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setString(1, p.getNome());
             stm.setString(2, p.getCpf());
             stm.setString(3, p.getEmail());
             stm.setString(4, p.getNascimento());
-            stm.setString(5, p.getSexo());
+            stm.setString(5, p.getSexo());  
             stm.setString(6, p.getTelefone());
+            stm.setString(7, p.getTipo_medico());
             stm.executeUpdate();
             stm.close();
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
@@ -72,7 +75,7 @@ public class PacienteDAO {
     public List<Paciente> listarTodos() {
         Connection con = Conectar.getConectar();
         List<Paciente> lista = new ArrayList<>();
-        String sql = "SELECT * FROM paciente ORDER by nome";
+        String sql = "SELECT * FROM paciente ORDER by id_paciente";
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             ResultSet resultado = stm.executeQuery();
             while (resultado.next()) {
@@ -80,9 +83,11 @@ public class PacienteDAO {
                 p.setId_paciente(resultado.getInt("id_paciente"));
                 p.setNome(resultado.getString("nome"));
                 p.setCpf(resultado.getString("cpf"));
+                p.setEmail(resultado.getString("email"));
                 p.setNascimento(resultado.getString("nascimento"));
                 p.setTelefone(resultado.getString("telefone"));
                 p.setSexo(resultado.getString("sexo"));
+                p.setTipo_medico(resultado.getString("tipo_medico"));
                 lista.add(p);
             }
         } catch (Exception ex) {
