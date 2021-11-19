@@ -16,7 +16,7 @@ import controller.Paciente;
  * @author Mateus Couto
  */
 public class PacienteDAO {
-
+    // CRUD
     public void register(Paciente p) {
         Connection con = Conectar.getConectar();
         JSONObject objetoJson = new JSONObject();
