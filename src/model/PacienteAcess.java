@@ -69,23 +69,20 @@ public class PacienteAcess {
     public List<Paciente> listarTodos() {
         Connection con = Conectar.getConectar();
         List<Paciente> lista = new ArrayList<>();
-        String sql = "SELECT * FROM paciente ORDER by id";
+        String sql = "SELECT * FROM paciente ";
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             ResultSet result = stm.executeQuery();
             while (result.next()) {
-                Paciente p = new Paciente();
-                p.setId_paciente(result.getInt("id"));
-                p.setNome(result.getString("nome"));
-                p.setCpf(result.getString("cpf"));
-                p.setEmail(result.getString("email"));
-                p.setNascimento(result.getString("nascimento"));
-                p.setTelefone(result.getString("telefone"));
-                p.setSexo(result.getString("sexo"));
-                p.setTipo_medico(result.getString("tipo_medico"));
+                int id = result.getInt("id");
+                String jsonString = result.getString("pacientes");
+
+                Paciente p = JsonUtils.getPaciente(jsonString);
+                p.setId_paciente(id);
+
                 lista.add(p);
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ao buscar os registros");
+            JOptionPane.showMessageDialog(null, "Error ao buscar os registros"+ex);
         }
         return lista;
     }
