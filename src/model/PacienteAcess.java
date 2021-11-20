@@ -1,4 +1,4 @@
-package dao;
+package model;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import org.json.simple.JSONObject;
 
 import utils.Conectar;
 import controller.Paciente;
@@ -15,20 +14,15 @@ import controller.Paciente;
  *
  * @author Mateus Couto
  */
-public class PacienteDAO {
+public class PacienteAcess {
+
     // CRUD
     public void register(Paciente p) {
         Connection con = Conectar.getConectar();
-        JSONObject objetoJson = new JSONObject();
-        String sql = "INSERT INTO paciente (nome, cpf, email, nascimento, sexo, telefone, tipo_medico) VALUES(?,?,?,?,?,?,?)";
+        // JSONObject objetoJson = new JSONObject();
+        String sql = "INSERT INTO paciente(pacientes) VALUES( ? )";
         try (PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setString(1, p.getNome());
-            stm.setString(2, p.getCpf());
-            stm.setString(3, p.getEmail());
-            stm.setString(4, p.getNascimento());
-            stm.setString(5, p.getSexo());  
-            stm.setString(6, p.getTelefone());
-            stm.setString(7, p.getTipo_medico());
+            stm.setString(1, JsonUtils.getJson(p));
             stm.executeUpdate();
             stm.close();
             JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
@@ -58,7 +52,7 @@ public class PacienteDAO {
     public void delete(Paciente p) {
         Connection con = Conectar.getConectar();
 
-        String sql = "DELETAR FROM paciente WHERE id_paciente = ? ";
+        String sql = "DELETE FROM paciente WHERE id = ? ";
         int option = JOptionPane.showConfirmDialog(null, "Deseja excluir o paciente "
                 + p.getNome() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
@@ -75,19 +69,19 @@ public class PacienteDAO {
     public List<Paciente> listarTodos() {
         Connection con = Conectar.getConectar();
         List<Paciente> lista = new ArrayList<>();
-        String sql = "SELECT * FROM paciente ORDER by id_paciente";
+        String sql = "SELECT * FROM paciente ORDER by id";
         try (PreparedStatement stm = con.prepareStatement(sql)) {
-            ResultSet resultado = stm.executeQuery();
-            while (resultado.next()) {
+            ResultSet result = stm.executeQuery();
+            while (result.next()) {
                 Paciente p = new Paciente();
-                p.setId_paciente(resultado.getInt("id_paciente"));
-                p.setNome(resultado.getString("nome"));
-                p.setCpf(resultado.getString("cpf"));
-                p.setEmail(resultado.getString("email"));
-                p.setNascimento(resultado.getString("nascimento"));
-                p.setTelefone(resultado.getString("telefone"));
-                p.setSexo(resultado.getString("sexo"));
-                p.setTipo_medico(resultado.getString("tipo_medico"));
+                p.setId_paciente(result.getInt("id"));
+                p.setNome(result.getString("nome"));
+                p.setCpf(result.getString("cpf"));
+                p.setEmail(result.getString("email"));
+                p.setNascimento(result.getString("nascimento"));
+                p.setTelefone(result.getString("telefone"));
+                p.setSexo(result.getString("sexo"));
+                p.setTipo_medico(result.getString("tipo_medico"));
                 lista.add(p);
             }
         } catch (Exception ex) {

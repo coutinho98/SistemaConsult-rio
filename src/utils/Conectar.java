@@ -13,7 +13,7 @@ public class Conectar {
 
     private static final String user = "root";
     private static final String password = "";
-    private static final String url = "jdbc:mysql://localhost/consultorio";
+    private static final String url = "jdbc:mysql://localhost/consultorio2";
 
     public static Connection getConectar() {
         Connection connect = null;
