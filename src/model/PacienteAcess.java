@@ -19,7 +19,6 @@ public class PacienteAcess {
     // CRUD
     public void register(Paciente p) {
         Connection con = Conectar.getConectar();
-        // JSONObject objetoJson = new JSONObject();
         String sql = "INSERT INTO paciente(pacientes) VALUES( ? )";
         try (PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setString(1, JsonUtils.getJson(p));
@@ -31,7 +30,7 @@ public class PacienteAcess {
         }
     }
 
-    public void update(Paciente p) {
+    /* public void update(Paciente p) {
         Connection con = Conectar.getConectar();
         String sql = "UPDATE paciente SET nome = ?, cpf = ?, email = ?, nascimento = ?, telefone = ?, sexo = ? WHERE id_paciente = ?";
         try (PreparedStatement stm = con.prepareStatement(sql)) {
@@ -47,9 +46,9 @@ public class PacienteAcess {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar o registro!");
         }
-    }
+    } */
 
-    public void delete(Paciente p) {
+ /* public void delete(Paciente p) {
         Connection con = Conectar.getConectar();
 
         String sql = "DELETE FROM paciente WHERE id = ? ";
@@ -64,8 +63,8 @@ public class PacienteAcess {
                 JOptionPane.showMessageDialog(null, "Erro ao excluir o registro!");
             }
         }
-    }
-
+    } */
+    
     public List<Paciente> listarTodos() {
         Connection con = Conectar.getConectar();
         List<Paciente> lista = new ArrayList<>();
@@ -82,7 +81,7 @@ public class PacienteAcess {
                 lista.add(p);
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ao buscar os registros"+ex);
+            JOptionPane.showMessageDialog(null, "Error ao buscar os registros" + ex);
         }
         return lista;
     }

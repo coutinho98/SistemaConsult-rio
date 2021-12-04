@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mateus%20Couto/Desktop/GerenciadorConsultas/src/controller/ValidaCPF.java</file>
+            <file>file:/C:/Users/Mateus%20Couto/Desktop/GerenciadorConsultas/src/controller/Paciente.java</file>
             <file>file:/C:/Users/Mateus%20Couto/Desktop/GerenciadorConsultas/src/utils/Conectar.java</file>
             <file>file:/C:/Users/Mateus%20Couto/Desktop/GerenciadorConsultas/src/model/PacienteAcess.java</file>
             <file>file:/C:/Users/Mateus%20Couto/Desktop/GerenciadorConsultas/src/forms/form_paciente.java</file>
+            <file>file:/C:/Users/Mateus%20Couto/Desktop/GerenciadorConsultas/src/model/JsonUtils.java</file>
         </group>
     </open-files>
 </project-private>
